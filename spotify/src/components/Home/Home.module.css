@@ -1,0 +1,8 @@
+.main {
+  padding: 40px;
+  flex: 0.8;
+  color: red;
+  overflow-y: auto;
+  margin-bottom: 48px;
+  height: 100vh;
+}

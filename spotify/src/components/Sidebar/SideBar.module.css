@@ -1,0 +1,52 @@
+.sidebar {
+  /* position: fixed; */
+  padding: 10px;
+  height: 100vh;
+  min-width: 240px;
+  flex: 0.1;
+  overflow-y: auto;
+  background-color: #040404;
+}
+
+img {
+  width: 130px;
+}
+
+.menuNavigation {
+  padding: 15px;
+  margin: 0;
+}
+ul {
+  padding: 25px 20px;
+}
+
+li {
+  list-style: none;
+  padding: 5px 0;
+}
+
+.link {
+  line-height: 28px;
+  font-size: 14px;
+  text-decoration: none;
+  cursor: pointer;
+  color: #b3b3b3;
+  transition: 200ms color ease-in;
+}
+
+.link:hover {
+  color: #fff;
+}
+
+.active {
+  margin-left: -3px;
+  text-decoration: none;
+  color: #fff;
+}
+
+.active::before {
+  content: '';
+  border-left: 3px solid #1db954;
+  position: relative;
+  left: -18px;
+}

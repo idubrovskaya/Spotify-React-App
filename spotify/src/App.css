@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;800&display=swap');
+
+* {
+  margin: 0 auto;
+  font-family: Montserrat, sans-serif;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  height: 100%;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.spotify {
+  display: flex;
+  background-color: #121212;
+  font-family: sans-serif;
+  overflow: hidden;
+  height: 100vh;
+}
