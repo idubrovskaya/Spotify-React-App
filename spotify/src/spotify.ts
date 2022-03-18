@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export const authEndpoint = 'https://accounts.spotify.com/authorize';
 
 const redirectUri = 'http://localhost:3000';
@@ -29,3 +31,16 @@ export const getTokenFromUrl = () => {
 export const loginUrl = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
   '%20'
 )}&response_type=token&show_dialog=true`;
+
+export const spotifyFetch = async (endpoint: string) => {
+  const token = getTokenFromUrl();
+  return axios
+    .create({
+      baseURL: 'https://api.spotify.com/v1',
+      headers: {
+        Authorization: `Bearer ${token.access_token}`,
+      },
+    })
+    .get(endpoint)
+    .then((response) => response.data);
+};

@@ -3,7 +3,7 @@ import { ChangeEventHandler, KeyboardEventHandler } from 'react';
 import styles from './SearchBar.module.css';
 
 export interface IInput {
-  value: string;
+  value?: string;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   onKeyDown?: KeyboardEventHandler<HTMLInputElement>;
 }

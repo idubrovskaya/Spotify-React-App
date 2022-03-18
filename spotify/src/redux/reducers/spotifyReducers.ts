@@ -1,25 +1,26 @@
 import { ACTIONS } from '../constants';
 
-export const initialState = {
-  user: null,
-  token: null,
-  playlists: [],
-  playing: false,
-  item: null,
+export interface ISong {
+  image: string;
+  songName: string;
+  artist: string;
+}
+
+export interface ISongsState {
+  songs: ISong[];
+  searchedSongsRequest: '';
+}
+
+const defaultState: ISongsState = {
+  songs: [],
+  searchedSongsRequest: '',
 };
 
-export const spotifyReducers = (state = initialState, action: any) => {
-  if (action.type === ACTIONS.SET_ACCESS_TOKEN) {
+export const songReducer = (state = defaultState, action: any) => {
+  if (action.type === ACTIONS.SEARCH_SONGS) {
     return {
       ...state,
-      token: action.token,
-    };
-  }
-
-  if (action.type === ACTIONS.SET_USER) {
-    return {
-      ...state,
-      user: action.user,
+      songs: action.searchedSongsRequest,
     };
   }
   return state;

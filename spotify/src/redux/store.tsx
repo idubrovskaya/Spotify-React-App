@@ -1,14 +1,13 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { spotifyReducers } from './reducers/spotifyReducers';
-import { songReducers, ISongsState } from './reducers/songReducers';
+import { ISongsState, songReducer } from './reducers/spotifyReducers';
 
 export interface IState {
-  songReducers: ISongsState;
+  songReducer: ISongsState;
 }
 
 export const store = createStore(
-  combineReducers({ spotifyReducers, songReducers }),
+  combineReducers({ songReducer }),
   composeWithDevTools(applyMiddleware(thunk))
 );

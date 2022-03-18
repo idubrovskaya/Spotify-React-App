@@ -1,8 +1,14 @@
 .main {
   padding: 40px;
   flex: 0.8;
-  color: red;
+  color: white;
   overflow-y: auto;
   margin-bottom: 48px;
   height: 100vh;
+}
+
+.categories {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
