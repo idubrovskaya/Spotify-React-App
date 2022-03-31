@@ -26,6 +26,15 @@ export const SideBar = () => {
               Search
             </NavLink>
           </li>
+          <li>
+            <NavLink
+              to='/playlist'
+              className={styles.link}
+              activeClassName={styles.active}
+            >
+              Playlist
+            </NavLink>
+          </li>
         </ul>
       </div>
       <div className={styles.albumArtwork}></div>

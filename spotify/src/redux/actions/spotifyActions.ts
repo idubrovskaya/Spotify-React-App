@@ -13,11 +13,9 @@ export const searchSongs = (songs: ISong[]) => {
 export function fetchSearchedSongs(search: string) {
   return async (dispatch: Dispatch) => {
     const response = await spotifyFetch(
-      `/search?query=${search}&type=artist,album,track&offset=5&limit=10`
+      `/search?query=${search}&type=track,artist&offset=35&limit=50`
     );
-    const result = await response.json();
-    // console.log(result);
 
-    dispatch(searchSongs(result.body.tracks.items));
+    dispatch(searchSongs(response.tracks.items));
   };
 }

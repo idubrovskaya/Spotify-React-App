@@ -34,11 +34,13 @@ export const loginUrl = `${authEndpoint}?client_id=${clientId}&redirect_uri=${re
 
 export const spotifyFetch = async (endpoint: string) => {
   const token = getTokenFromUrl();
+  const localToken = localStorage.getItem('access_token');
+
   return axios
     .create({
       baseURL: 'https://api.spotify.com/v1',
       headers: {
-        Authorization: `Bearer ${token.access_token}`,
+        Authorization: `Bearer ${token.access_token || localToken}`,
       },
     })
     .get(endpoint)

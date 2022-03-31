@@ -1,6 +1,13 @@
 import { useHistory } from 'react-router-dom';
-import { ChangeEventHandler, KeyboardEventHandler } from 'react';
+import {
+  ChangeEventHandler,
+  KeyboardEventHandler,
+  useEffect,
+  useState,
+} from 'react';
 import styles from './SearchBar.module.css';
+import { spotifyFetch } from '../../spotify';
+import { IUser, User } from '../User/User';
 
 export interface IInput {
   value?: string;
@@ -10,6 +17,12 @@ export interface IInput {
 
 export const SearchBar = ({ onChange, onKeyDown }: IInput) => {
   const history = useHistory();
+
+  const [user, setUser] = useState<any>([]);
+
+  useEffect(() => {
+    spotifyFetch('/me').then((result) => setUser([result]));
+  }, []);
 
   return (
     <header className={styles.header}>
@@ -33,7 +46,10 @@ export const SearchBar = ({ onChange, onKeyDown }: IInput) => {
           onKeyDown={onKeyDown}
         />
       </div>
-      <div className={styles.userDetails}></div>
+      <div className={styles.userDetails}>
+        <img src={user[0]?.images[0].url} alt='user_image' />
+        <p>{user[0]?.display_name}</p>
+      </div>
     </header>
   );
 };

@@ -1,0 +1,21 @@
+.track {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.songName {
+  margin: 0 40px;
+}
+
+.artist {
+  margin: 0 15px;
+}
+
+.albumName {
+  margin: 0 35px;
+}
+
+audio {
+  margin: 0 30px;
+}

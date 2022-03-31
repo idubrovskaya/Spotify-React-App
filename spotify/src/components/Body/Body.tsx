@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSearchedSongs } from '../../redux/actions/spotifyActions';
 import { IState } from '../../redux/store';
+import { SearchResults, ISearchResults } from '../SearchResults/SearchResults';
 
 export const Body = () => {
   const token = localStorage.getItem('access_token');
@@ -42,7 +43,26 @@ export const Body = () => {
           onKeyDown={handleEnter}
         />
       </div>
-      <div className={styles.main}></div>
+      <div className={styles.main}>
+        {songs.length === 0 ? (
+          <h1>No songs</h1>
+        ) : (
+          songs?.map((song: any) => {
+            return (
+              <div className={styles.track}>
+                <SearchResults
+                  key={song.id}
+                  image={song.album.images[0].url}
+                  previewUrl={song.preview_url}
+                  trackName={song.name}
+                  artistName={song.artists[0].name}
+                  albumName={song.album.name}
+                />
+              </div>
+            );
+          })
+        )}
+      </div>
     </div>
   );
 };

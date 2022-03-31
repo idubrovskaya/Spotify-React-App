@@ -7,9 +7,10 @@ import { SideBar } from '../components/Sidebar/SideBar';
 import { getTokenFromUrl } from '../spotify';
 
 import SpotifyWebApi from 'spotify-web-api-js';
-import { MusicPlayer } from '../components/MusicPlayer/MusicPlayer';
 import { Body } from '../components/Body/Body';
 import { Home } from '../components/Home/Home';
+import { MyPlaylists } from '../components/MyPlaylists/MyPlaylists';
+import { MusicPlayer } from '../components/MusicPlayer/MusicPlayer';
 
 import '../App.css';
 
@@ -20,8 +21,6 @@ export const RootRouter = () => {
 
   useEffect(() => {
     const { access_token, expires_in, token_type } = getTokenFromUrl();
-    // window.location.hash = '';
-    // const _accessToken = hash.access_token;
 
     localStorage.clear();
     localStorage.setItem('access_token', access_token);
@@ -41,6 +40,7 @@ export const RootRouter = () => {
           <Switch>
             <Route exact path='/' component={Home} />
             <Route path='/search' component={Body} />
+            <Route path='/playlist' component={MyPlaylists} />
           </Switch>
           <MusicPlayer />
         </BrowserRouter>

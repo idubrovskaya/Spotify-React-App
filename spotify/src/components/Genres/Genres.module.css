@@ -24,3 +24,7 @@
 .genreImg {
   width: 100%;
 }
+
+.genreImg:hover {
+  opacity: 0.33;
+}

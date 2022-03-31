@@ -7,20 +7,19 @@ import axios from 'axios';
 
 export const Home = () => {
   const token = localStorage.getItem('access_token');
-  console.log(getTokenFromUrl());
 
   const [categories, setCategories] = useState<IGenresCard[][]>([]);
-  console.log(categories);
+  console.log('categ', categories);
 
   useEffect(() => {
     spotifyFetch('/browse/categories').then((result) =>
       setCategories([...categories, result.categories.items])
     );
-  }, []);
+  }, [token]);
 
-  return (
+  return categories[0] ? (
     <div className={styles.main}>
-      {categories[0].map((cat: any) => {
+      {categories[0]?.map((cat: any) => {
         return (
           <div className={styles.categories}>
             <GenresCard
@@ -32,5 +31,5 @@ export const Home = () => {
         );
       })}
     </div>
-  );
+  ) : null;
 };
