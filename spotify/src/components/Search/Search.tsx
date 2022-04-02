@@ -1,21 +1,23 @@
-import { SearchBar } from '../SearchBar/SearchBar';
-import styles from './Body.module.css';
-import { getTokenFromUrl, spotifyFetch } from '../../spotify';
-import { useState, useCallback, useEffect, ChangeEvent } from 'react';
+import { SearchBar } from "../SearchBar/SearchBar";
+import styles from "./Body.module.css";
+import { getTokenFromUrl, spotifyFetch } from "../../spotify";
+import { useState, useCallback, useEffect, ChangeEvent } from "react";
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import {
   clearContent,
   fetchSearchedSongs,
-} from '../../redux/actions/spotifyActions';
-import { IState } from '../../redux/store';
-import { SearchResults, ISearchResults } from '../SearchResults/SearchResults';
-import { Track } from '../Tracks/Track';
+} from "../../redux/actions/spotifyActions";
+import { IState } from "../../redux/store";
+import { SearchResults, ISearchResults } from "../SearchResults/SearchResults";
+import { Track } from "../Tracks/Track";
+import { playSong } from "../../redux/actions/playerActions";
+import { ISong } from "../../redux/reducers/spotifyReducers";
 
 export const Search = () => {
-  const token = localStorage.getItem('access_token');
+  const token = localStorage.getItem("access_token");
 
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const songs = useSelector((state: IState) => state.songReducer.songs); //для мэппинга альбома/песни/артиста
 
   const handleSearchInputChanges = useCallback(
@@ -28,7 +30,7 @@ export const Search = () => {
   const dispatch = useDispatch();
 
   const handleEnter = (event: any) => {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       dispatch(fetchSearchedSongs(search));
     }
   };
@@ -40,7 +42,9 @@ export const Search = () => {
     };
   }, [search, token]);
 
-  console.log('songs', songs);
+  const onClickSong = (song: ISong, index: number) => {
+    dispatch(playSong(song, songs, index));
+  };
 
   return (
     <div className={styles.body}>
@@ -67,6 +71,7 @@ export const Search = () => {
                 album={song.album.name}
                 added={song?.album.release_date}
                 preview={song.preview_url}
+                onClick={() => onClickSong(song, i)}
               />
             ) : (
               <h1>NOTHING</h1>

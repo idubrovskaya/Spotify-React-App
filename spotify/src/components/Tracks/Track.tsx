@@ -1,4 +1,4 @@
-import styles from './Track.module.css';
+import styles from "./Track.module.css";
 
 export interface ITrack {
   id: string;
@@ -10,6 +10,7 @@ export interface ITrack {
   duration?: string;
   added?: string;
   index: number;
+  onClick: () => void;
 }
 
 export const Track = ({
@@ -20,19 +21,20 @@ export const Track = ({
   added,
   preview,
   index,
+  onClick,
 }: ITrack) => {
   return (
-    <div className={styles.track}>
+    <div className={styles.track} onClick={onClick}>
       <div className={styles.wrapper}>
         <p className={styles.index}>{index}</p>
-        {image ? <img src={image} alt='album-image' /> : null}
+        {image ? <img src={image} alt="album-image" /> : null}
         <div className={styles.trackInfo}>
           <p className={styles.trackName}>{trackName}</p>
           <p className={styles.artist}>{artist}</p>
         </div>
         <p className={styles.album}>{album}</p>
         <p className={styles.date}>
-          {added?.slice(0, 10).split('-').reverse().join('.')}
+          {added?.slice(0, 10).split("-").reverse().join(".")}
         </p>
         <audio src={preview} controls />
       </div>
