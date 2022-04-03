@@ -1,14 +1,40 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { spotifyReducers } from './reducers/spotifyReducers';
-import { songReducers, ISongsState } from './reducers/songReducers';
+import { ISongsState, songReducer } from './reducers/spotifyReducers';
+import {
+  categoryReducer,
+  ICategories,
+  categoriesReducer,
+  IGenre,
+  INewReleases,
+  newReleasesReducer,
+  newTracksReducer,
+  INewAlbum,
+  IFeaturedPlaylists,
+  featuredPlaylists,
+} from './reducers/categoryReducer';
+import { tracksReducer, ITracks } from './reducers/tracksReducer';
 
 export interface IState {
-  songReducers: ISongsState;
+  songReducer: ISongsState;
+  categoryReducer: IGenre;
+  tracksReducer: ITracks;
+  categoriesReducer: ICategories;
+  newReleasesReducer: INewReleases;
+  newTracksReducer: INewAlbum;
+  featuredPlaylists: IFeaturedPlaylists;
 }
 
 export const store = createStore(
-  combineReducers({ spotifyReducers, songReducers }),
+  combineReducers({
+    songReducer,
+    categoryReducer,
+    tracksReducer,
+    categoriesReducer,
+    newReleasesReducer,
+    newTracksReducer,
+    featuredPlaylists,
+  }),
   composeWithDevTools(applyMiddleware(thunk))
 );

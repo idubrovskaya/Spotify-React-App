@@ -1,0 +1,40 @@
+.body {
+  display: flex;
+  flex-direction: column;
+  flex: 0.9;
+  height: 100vh;
+  overflow-y: auto;
+  color: white;
+}
+
+.headerSearch {
+  width: 100%;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  margin-left: 100px;
+  margin-right: 100px;
+  margin-bottom: 100px;
+}
+
+.track {
+  display: flex;
+  width: 100%;
+  margin: 10px;
+  padding: 10px;
+  cursor: pointer;
+  border: 1px solid salmon;
+  border-radius: 20px;
+}
+
+.track img {
+  width: 60px;
+  margin: 0;
+}
+
+.audio {
+  margin: 0 30px;
+}

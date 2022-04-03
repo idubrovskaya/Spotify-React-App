@@ -1,0 +1,20 @@
+.title {
+  position: relative;
+  margin: 15px;
+  text-align: center;
+  width: 100%;
+}
+
+.inactive a {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 35px;
+  text-decoration: none;
+  color: white;
+  padding: 0 18px;
+}
+
+.inactive a:hover {
+  content: '';
+  border-bottom: 2px solid #1db954;
+}

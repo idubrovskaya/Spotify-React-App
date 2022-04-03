@@ -1,0 +1,17 @@
+/* User details */
+
+.userDetails {
+  display: flex;
+  align-items: center;
+  margin: 0 50px 0 0;
+}
+
+.userDetails img {
+  width: 50px;
+  border-radius: 50%;
+}
+
+.userDetails p {
+  padding: 0 10px;
+  font-size: 13px;
+}

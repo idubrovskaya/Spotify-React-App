@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Login } from '../components/Login/Login';
@@ -6,26 +7,33 @@ import { SideBar } from '../components/Sidebar/SideBar';
 import { getTokenFromUrl } from '../spotify';
 
 import SpotifyWebApi from 'spotify-web-api-js';
-import { MusicPlayer } from '../components/MusicPlayer/MusicPlayer';
-import { Body } from '../components/Body/Body';
+import { Search } from '../components/Search/Search';
 import { Home } from '../components/Home/Home';
+import { MyPlaylists } from '../components/MyPlaylists/MyPlaylists';
+import { MusicPlayer } from '../components/MusicPlayer/MusicPlayer';
+import { Genre } from '../components/Genres/Genre';
+import { PlaylistTracks } from '../components/Playlist/PlaylistTracks';
+import { NewReleases } from '../components/New Releases/NewReleases';
+import { NewReleasesTracks } from '../components/New Releases/NewReleasesTracks';
+import { FeaturedPlaylists } from '../components/FeaturedPlaylists/FeturedPlaylists';
+
 import '../App.css';
 
 export const spotify = new SpotifyWebApi();
 
 export const RootRouter = () => {
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState('');
 
   useEffect(() => {
-    const hash = getTokenFromUrl();
-    window.location.hash = '';
-    const _accessToken = hash.access_token;
-    localStorage.clear();
-    localStorage.setItem('accestoken', _accessToken);
+    const { access_token, expires_in, token_type } = getTokenFromUrl();
 
-    if (_accessToken) {
-      setToken(_accessToken);
-      spotify.setAccessToken(_accessToken);
+    localStorage.clear();
+    localStorage.setItem('access_token', access_token);
+    localStorage.setItem('expires', expires_in);
+    localStorage.setItem('token_type', token_type);
+
+    if (access_token) {
+      setToken(access_token);
     }
   }, []);
 
@@ -36,7 +44,13 @@ export const RootRouter = () => {
           <SideBar />
           <Switch>
             <Route exact path='/' component={Home} />
-            <Route path='/search' component={Body} />
+            <Route path='/search' component={Search} />
+            <Route path='/category/:category_id' component={Genre} />
+            <Route path='/new_releases' component={NewReleases} />
+            <Route path='/album/:album_id' component={NewReleasesTracks} />
+            <Route path='/featured_playlists' component={FeaturedPlaylists} />
+            <Route path='/playlist/:playlist_id' component={PlaylistTracks} />
+            <Route path='/liked_songs' component={MyPlaylists} />
           </Switch>
           <MusicPlayer />
         </BrowserRouter>

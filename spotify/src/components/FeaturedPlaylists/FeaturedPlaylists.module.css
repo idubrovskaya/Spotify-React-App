@@ -8,10 +8,8 @@
   height: 100vh;
 }
 
-.categories {
+.playlists {
   display: flex;
   flex-wrap: wrap;
-
   margin: 50px 178px 150px;
-  overflow-y: auto;
 }

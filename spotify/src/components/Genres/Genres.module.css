@@ -1,0 +1,45 @@
+/*GENRES CARD*/
+
+.genres {
+  position: relative;
+  padding: 10px;
+  line-height: 28px;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow-y: auto;
+  width: 300px;
+  cursor: pointer;
+}
+
+.genreName {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, 100%);
+  -ms-transform: translate(-50%, 100%);
+  transform: translate(-50%, 100%);
+  font-size: 18px;
+}
+
+.genreImg {
+  width: 100%;
+  border-radius: 10px;
+  transition: 0.5s;
+}
+
+.genreImg:hover {
+  opacity: 0.55;
+}
+
+/*GENRE*/
+
+.categoryPlaylists {
+  overflow-y: auto;
+  flex: 0.9;
+}
+
+.playlists {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 50px 178px 150px;
+}

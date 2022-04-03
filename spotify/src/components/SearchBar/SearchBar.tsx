@@ -1,9 +1,10 @@
 import { useHistory } from 'react-router-dom';
 import { ChangeEventHandler, KeyboardEventHandler } from 'react';
 import styles from './SearchBar.module.css';
+import { UserInfo } from '../User/UserInfo';
 
 export interface IInput {
-  value: string;
+  value?: string;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   onKeyDown?: KeyboardEventHandler<HTMLInputElement>;
 }
@@ -33,7 +34,7 @@ export const SearchBar = ({ onChange, onKeyDown }: IInput) => {
           onKeyDown={onKeyDown}
         />
       </div>
-      <div className={styles.userDetails}></div>
+      <UserInfo />
     </header>
   );
 };
