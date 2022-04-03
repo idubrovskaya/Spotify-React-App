@@ -24,22 +24,9 @@
 /* Search bar */
 
 .search {
-  position: relative;
+  /* position: relative; */
   margin: 0 50px;
 }
-
-/* .search::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  margin: auto 10px;
-  width: 25px;
-  height: 25px;
-  background: url('../../../public/img/cross.svg') no-repeat;
-  cursor: pointer;
-} */
 
 .search input {
   font-style: normal;

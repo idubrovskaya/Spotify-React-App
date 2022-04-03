@@ -58,15 +58,14 @@ export const MusicPlayer = ({ imgSrc, artist, songTitle, songSrc }: any) => {
   }, [songIndex]);
 
   const startTimer = () => {
-    clearInterval(intervalRef.current);
-
-    intervalRef.current = setInterval(() => {
-      if (audioRef.current.ended) {
-        toNextTrack();
-      } else {
-        setSongProgress(audioRef.current.currentTime);
-      }
-    }, [1000]);
+    // clearInterval(intervalRef.current);
+    // intervalRef.current = setInterval(() => {
+    //   if (audioRef.current.ended) {
+    //     toNextTrack();
+    //   } else {
+    //     setSongProgress(audioRef.current.currentTime);
+    //   }
+    // }, [1000]);
   };
 
   const playPauseTrack = () => {
@@ -74,20 +73,20 @@ export const MusicPlayer = ({ imgSrc, artist, songTitle, songSrc }: any) => {
   };
   // как передать песни из списка ?
   const toPrevTrack = () => {
-    if (songIndex - 1 < 0) {
-      setSongIndex(song.length - 1);
-    } else {
-      setSongIndex(songIndex - 1);
-    }
+    // if (songIndex - 1 < 0) {
+    //   setSongIndex(song.length - 1);
+    // } else {
+    //   setSongIndex(songIndex - 1);
+    // }
     console.log('TODO go to prev');
   };
 
   const toNextTrack = () => {
-    if (songIndex < song.length - 1) {
-      setSongIndex(songIndex + 1);
-    } else {
-      setSongIndex(0);
-    }
+    // if (songIndex < song.length - 1) {
+    //   setSongIndex(songIndex + 1);
+    // } else {
+    //   setSongIndex(0);
+    // }
     console.log('TODO go to next');
   };
 

@@ -23,5 +23,11 @@ export const songReducer = (state = defaultState, action: any) => {
       songs: action.searchedSongsRequest,
     };
   }
+  if (action.type === ACTIONS.CLEAR_CONTENT) {
+    return {
+      ...state,
+      songs: [],
+    };
+  }
   return state;
 };

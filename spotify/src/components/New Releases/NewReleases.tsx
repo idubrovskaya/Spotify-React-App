@@ -1,50 +1,52 @@
-import styles from './Home.module.css';
+import styles from '../Home/Home.module.css';
 import { useEffect } from 'react';
-import { GenresCard } from '../Genres/GenresCard';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '../../redux/store';
 import {
   clearContent,
-  fetchCategories,
+  fetchNewReleases,
 } from '../../redux/actions/spotifyActions';
 import { Header } from '../Header/Header';
 import { Loader } from '../Loader/Loader';
+import { NewReleasesCard } from './NewReleasesCard';
 import { HomeTitle } from '../HomeTitle/HomeTitle';
 
-export const Home = () => {
+export const NewReleases = () => {
   const token = localStorage.getItem('access_token');
 
   const history = useHistory();
 
-  const categories = useSelector(
-    (state: IState) => state.categoriesReducer.categories
+  const newReleases = useSelector(
+    (state: IState) => state.newReleasesReducer.newReleases
   );
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchCategories());
+    dispatch(fetchNewReleases());
     return () => {
       dispatch(clearContent());
     };
   }, [token]);
 
+  console.log('new', newReleases);
+
   return (
     <div className={styles.main}>
       <Header />
       <HomeTitle />
-      {categories.length !== 0 ? (
+      {newReleases.length !== 0 ? (
         <div className={styles.categories}>
-          {categories?.map((category: any) => {
+          {newReleases?.map((newRelease: any) => {
             return (
-              <GenresCard
-                key={category.id}
-                id={category.id}
-                image={category.icons[0].url}
-                title={category.name}
+              <NewReleasesCard
+                key={newRelease.id}
+                id={newRelease.id}
+                image={newRelease.images[0].url}
+                title={newRelease.name}
                 onClick={() => {
-                  history.push('/category/' + category.id);
+                  history.push('/album/' + newRelease.id);
                 }}
               />
             );

@@ -1,6 +1,9 @@
 import styles from './MyPlaylists.module.css';
 import { useEffect, useState } from 'react';
 import { spotifyFetch } from '../../spotify';
+import { UserInfo } from '../User/UserInfo';
+import { Header } from '../Header/Header';
+import { Loader } from '../Loader/Loader';
 
 export const MyPlaylists = () => {
   const token = localStorage.getItem('access_token');
@@ -22,6 +25,7 @@ export const MyPlaylists = () => {
 
   return (
     <div className={styles.myPlaylist}>
+      <Header />
       <div className={styles.wrapper}>
         <div className={styles.title}>
           <div className={styles.likeImg}>
@@ -30,11 +34,12 @@ export const MyPlaylists = () => {
           <div className={styles.info}>
             <p className={styles.playlistTitle}>PLAYLIST</p>
             <p className={styles.likedSongs}>Liked Songs</p>
+            <UserInfo />
           </div>
         </div>
       </div>
       <div className={styles.mainContent}>
-        {savedTracks ? (
+        {savedTracks.length !== 0 ? (
           <div className={styles.playlist}>
             {savedTracks[0]?.items?.map((track: any) => {
               return (
@@ -56,7 +61,9 @@ export const MyPlaylists = () => {
               );
             })}
           </div>
-        ) : null}
+        ) : (
+          <Loader />
+        )}
       </div>
     </div>
   );

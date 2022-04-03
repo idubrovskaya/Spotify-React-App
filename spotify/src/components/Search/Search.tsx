@@ -1,22 +1,25 @@
 import { SearchBar } from '../SearchBar/SearchBar';
 import styles from './Body.module.css';
 import { getTokenFromUrl, spotifyFetch } from '../../spotify';
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, ChangeEvent } from 'react';
 
-import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchSearchedSongs } from '../../redux/actions/spotifyActions';
+import {
+  clearContent,
+  fetchSearchedSongs,
+} from '../../redux/actions/spotifyActions';
 import { IState } from '../../redux/store';
 import { SearchResults, ISearchResults } from '../SearchResults/SearchResults';
+import { Track } from '../Tracks/Track';
 
-export const Body = () => {
+export const Search = () => {
   const token = localStorage.getItem('access_token');
 
   const [search, setSearch] = useState('');
   const songs = useSelector((state: IState) => state.songReducer.songs); //для мэппинга альбома/песни/артиста
 
   const handleSearchInputChanges = useCallback(
-    (event: any) => {
+    (event: ChangeEvent<HTMLInputElement>) => {
       setSearch(event.target.value);
     },
     [setSearch]
@@ -32,7 +35,12 @@ export const Body = () => {
 
   useEffect(() => {
     dispatch(fetchSearchedSongs(search));
+    return () => {
+      dispatch(clearContent());
+    };
   }, [search, token]);
+
+  console.log('songs', songs);
 
   return (
     <div className={styles.body}>
@@ -47,18 +55,21 @@ export const Body = () => {
         {songs.length === 0 ? (
           <h1>No songs</h1>
         ) : (
-          songs?.map((song: any) => {
-            return (
-              <div className={styles.track}>
-                <SearchResults
-                  key={song.id}
-                  image={song.album.images[0].url}
-                  previewUrl={song.preview_url}
-                  trackName={song.name}
-                  artistName={song.artists[0].name}
-                  albumName={song.album.name}
-                />
-              </div>
+          songs?.map((song: any, i: number) => {
+            return song.name || songs.length !== 0 ? (
+              <Track
+                index={i !== 0 ? i + 1 : 1}
+                key={song.id + Math.random().toString(16).slice(2)}
+                id={song.id}
+                image={song.album.images[0].url}
+                trackName={song.name}
+                artist={song.artists[0].name}
+                album={song.album.name}
+                added={song?.album.release_date}
+                preview={song.preview_url}
+              />
+            ) : (
+              <h1>NOTHING</h1>
             );
           })
         )}

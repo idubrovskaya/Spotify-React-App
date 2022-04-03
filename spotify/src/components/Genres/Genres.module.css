@@ -1,13 +1,13 @@
+/*GENRES CARD*/
+
 .genres {
   position: relative;
   padding: 10px;
   line-height: 28px;
   font-size: 14px;
   white-space: nowrap;
-  overflow: hidden;
-  -o-text-overflow: ellipsis;
-  text-overflow: ellipsis;
-  width: 200px;
+  overflow-y: auto;
+  width: 300px;
   cursor: pointer;
 }
 
@@ -23,8 +23,23 @@
 
 .genreImg {
   width: 100%;
+  border-radius: 10px;
+  transition: 0.5s;
 }
 
 .genreImg:hover {
-  opacity: 0.33;
+  opacity: 0.55;
+}
+
+/*GENRE*/
+
+.categoryPlaylists {
+  overflow-y: auto;
+  flex: 0.9;
+}
+
+.playlists {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 50px 178px 150px;
 }

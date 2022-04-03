@@ -1,0 +1,36 @@
+.card {
+  position: relative;
+  padding: 10px;
+  overflow-y: auto;
+  width: 300px;
+  cursor: pointer;
+}
+
+.card img {
+  width: 100%;
+  border-radius: 10px;
+  transition: 0.5s;
+}
+
+.card img:hover {
+  opacity: 0.55;
+}
+
+.card p {
+  font-size: 14px;
+  padding: 10px 0;
+}
+
+/*Tracks*/
+
+.main {
+  flex: 0.9;
+  overflow-y: auto;
+}
+
+.tracks {
+  display: flex;
+  flex-direction: column;
+  margin: 60px 120px 180px;
+  color: white;
+}

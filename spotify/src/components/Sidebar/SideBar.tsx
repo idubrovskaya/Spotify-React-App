@@ -28,7 +28,7 @@ export const SideBar = () => {
           </li>
           <li>
             <NavLink
-              to='/playlist'
+              to='/liked_songs'
               className={styles.link}
               activeClassName={styles.active}
             >

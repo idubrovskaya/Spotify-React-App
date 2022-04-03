@@ -3,6 +3,7 @@
   overflow-y: auto;
   flex: 0.9;
 }
+
 ::-webkit-scrollbar {
   width: 0;
 }
@@ -16,8 +17,7 @@
 
 .title {
   display: flex;
-  align-items: flex-end;
-
+  /* align-items: flex-end; */
   padding: 50px 30px 15px;
 }
 
@@ -30,12 +30,17 @@
 }
 
 .info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
   margin: 0 10px;
 }
 
 .playlistTitle {
   font-size: 14px;
   padding: 5px 0;
+  margin: 0;
 }
 
 .likedSongs {

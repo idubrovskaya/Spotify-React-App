@@ -1,3 +1,5 @@
+import styles from './User.module.css';
+
 export interface IUser {
   image: string;
   displayName: string;
@@ -5,7 +7,7 @@ export interface IUser {
 
 export const User = ({ image, displayName }: IUser) => {
   return (
-    <div>
+    <div className={styles.userDetails}>
       <img src={image} alt='user' />
       <p>{displayName}</p>
     </div>

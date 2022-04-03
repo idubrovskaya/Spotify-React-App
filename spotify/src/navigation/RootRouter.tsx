@@ -7,10 +7,15 @@ import { SideBar } from '../components/Sidebar/SideBar';
 import { getTokenFromUrl } from '../spotify';
 
 import SpotifyWebApi from 'spotify-web-api-js';
-import { Body } from '../components/Body/Body';
+import { Search } from '../components/Search/Search';
 import { Home } from '../components/Home/Home';
 import { MyPlaylists } from '../components/MyPlaylists/MyPlaylists';
 import { MusicPlayer } from '../components/MusicPlayer/MusicPlayer';
+import { Genre } from '../components/Genres/Genre';
+import { PlaylistTracks } from '../components/Playlist/PlaylistTracks';
+import { NewReleases } from '../components/New Releases/NewReleases';
+import { NewReleasesTracks } from '../components/New Releases/NewReleasesTracks';
+import { FeaturedPlaylists } from '../components/FeaturedPlaylists/FeturedPlaylists';
 
 import '../App.css';
 
@@ -39,8 +44,13 @@ export const RootRouter = () => {
           <SideBar />
           <Switch>
             <Route exact path='/' component={Home} />
-            <Route path='/search' component={Body} />
-            <Route path='/playlist' component={MyPlaylists} />
+            <Route path='/search' component={Search} />
+            <Route path='/category/:category_id' component={Genre} />
+            <Route path='/new_releases' component={NewReleases} />
+            <Route path='/album/:album_id' component={NewReleasesTracks} />
+            <Route path='/featured_playlists' component={FeaturedPlaylists} />
+            <Route path='/playlist/:playlist_id' component={PlaylistTracks} />
+            <Route path='/liked_songs' component={MyPlaylists} />
           </Switch>
           <MusicPlayer />
         </BrowserRouter>
