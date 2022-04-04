@@ -1,8 +1,14 @@
 import { SearchBar } from '../SearchBar/SearchBar';
 import styles from './Body.module.css';
 import { getTokenFromUrl, spotifyFetch } from '../../spotify';
-import { useState, useCallback, useEffect, ChangeEvent } from 'react';
-
+import {
+  useState,
+  useCallback,
+  useEffect,
+  ChangeEvent,
+  useContext,
+} from 'react';
+import { Context } from '../../App';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   clearContent,
@@ -11,9 +17,12 @@ import {
 import { IState } from '../../redux/store';
 import { SearchResults, ISearchResults } from '../SearchResults/SearchResults';
 import { Track } from '../Tracks/Track';
+import { Loader } from '../Loader/Loader';
 
 export const Search = () => {
   const token = localStorage.getItem('access_token');
+
+  const { theme } = useContext(Context);
 
   const [search, setSearch] = useState('');
   const songs = useSelector((state: IState) => state.songReducer.songs); //для мэппинга альбома/песни/артиста
@@ -43,7 +52,7 @@ export const Search = () => {
   console.log('songs', songs);
 
   return (
-    <div className={styles.body}>
+    <div className={styles.body} style={{ background: theme.backgroundMain }}>
       <div className={styles.headerSearch}>
         <SearchBar
           value={search}
@@ -56,7 +65,7 @@ export const Search = () => {
           <h1>No songs</h1>
         ) : (
           songs?.map((song: any, i: number) => {
-            return song.name || songs.length !== 0 ? (
+            return song.name ? (
               <Track
                 index={i !== 0 ? i + 1 : 1}
                 key={song.id + Math.random().toString(16).slice(2)}
@@ -69,7 +78,7 @@ export const Search = () => {
                 preview={song.preview_url}
               />
             ) : (
-              <h1>NOTHING</h1>
+              <Loader />
             );
           })
         )}

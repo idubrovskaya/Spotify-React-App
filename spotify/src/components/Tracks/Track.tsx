@@ -1,4 +1,6 @@
 import styles from './Track.module.css';
+import { Context } from '../../App';
+import { useContext } from 'react';
 
 export interface ITrack {
   id: string;
@@ -21,16 +23,22 @@ export const Track = ({
   preview,
   index,
 }: ITrack) => {
+  const { theme } = useContext(Context);
+
   return (
-    <div className={styles.track}>
+    <div className={styles.track} style={{}}>
       <div className={styles.wrapper}>
         <p className={styles.index}>{index}</p>
         {image ? <img src={image} alt='album-image' /> : null}
         <div className={styles.trackInfo}>
           <p className={styles.trackName}>{trackName}</p>
-          <p className={styles.artist}>{artist}</p>
+          <p className={styles.artist} style={{ color: theme.trackArtist }}>
+            {artist}
+          </p>
         </div>
-        <p className={styles.album}>{album}</p>
+        <p className={styles.album} style={{ color: theme.trackAlbum }}>
+          {album}
+        </p>
         <p className={styles.date}>
           {added?.slice(0, 10).split('-').reverse().join('.')}
         </p>

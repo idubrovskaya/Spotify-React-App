@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { clearContent, fetchTracks } from '../../redux/actions/spotifyActions';
@@ -7,9 +7,12 @@ import { Header } from '../Header/Header';
 import { Loader } from '../Loader/Loader';
 import { Track } from '../Tracks/Track';
 import styles from './Playlist.module.css';
+import { Context } from '../../App';
 
 export const PlaylistTracks = () => {
   const token = localStorage.getItem('access_token');
+
+  const { theme } = useContext(Context);
 
   const params: { playlist_id: string } = useParams();
 
@@ -27,7 +30,10 @@ export const PlaylistTracks = () => {
   console.log('треки', tracks);
 
   return (
-    <div className={styles.wrapper}>
+    <div
+      className={styles.wrapper}
+      style={{ background: theme.backgroundMain }}
+    >
       <Header />
       {tracks.length === 0 ? (
         <Loader />

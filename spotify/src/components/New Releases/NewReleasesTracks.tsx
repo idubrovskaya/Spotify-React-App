@@ -9,11 +9,15 @@ import { IState } from '../../redux/store';
 import { Header } from '../Header/Header';
 import { Loader } from '../Loader/Loader';
 import { Track } from '../Tracks/Track';
+import { Context } from '../../App';
+import { useContext } from 'react';
 
 import styles from './NewReleases.module.css';
 
 export const NewReleasesTracks = () => {
   const token = localStorage.getItem('access_token');
+
+  const { theme } = useContext(Context);
 
   const params: { album_id: string } = useParams();
 
@@ -34,7 +38,7 @@ export const NewReleasesTracks = () => {
   console.log('новые треки', newTracks);
 
   return (
-    <div className={styles.main}>
+    <div className={styles.main} style={{ background: theme.backgroundMain }}>
       <Header />
       {newTracks.length !== 0 ? (
         <div className={styles.tracks}>

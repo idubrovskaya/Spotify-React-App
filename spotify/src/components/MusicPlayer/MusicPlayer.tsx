@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useContext } from 'react';
+import { Context } from '../../App';
 
 import styles from './MusicPlayer.module.css';
 import PlayCircleOutlinedIcon from '@mui/icons-material/PlayCircleOutlined';
@@ -11,6 +12,8 @@ import { Slider } from '@material-ui/core';
 
 export const MusicPlayer = ({ imgSrc, artist, songTitle, songSrc }: any) => {
   const localToken = localStorage.getItem('access_token');
+
+  const { theme } = useContext(Context);
 
   // State
   const [songIndex, setSongIndex] = useState(0);
@@ -104,7 +107,7 @@ export const MusicPlayer = ({ imgSrc, artist, songTitle, songSrc }: any) => {
   };
 
   return (
-    <div className={styles.footer}>
+    <div className={styles.footer} style={{ background: theme.player }}>
       <div className={styles.songDetails}>
         <img className={styles.albumArt} src={imgSrc} alt='album-image' />
         <div className={styles.songInfo}>
