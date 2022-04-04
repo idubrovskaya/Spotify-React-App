@@ -12,6 +12,7 @@ export interface ITrack {
   duration?: string;
   added?: string;
   index: number;
+  onClick: () => void;
 }
 
 export const Track = ({
@@ -22,11 +23,12 @@ export const Track = ({
   added,
   preview,
   index,
+  onClick,
 }: ITrack) => {
   const { theme } = useContext(Context);
 
   return (
-    <div className={styles.track} style={{}}>
+    <div className={styles.track} onClick={onClick}>
       <div className={styles.wrapper}>
         <p className={styles.index}>{index}</p>
         {image ? <img src={image} alt='album-image' /> : null}

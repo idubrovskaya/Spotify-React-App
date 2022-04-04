@@ -17,14 +17,14 @@ export const Header = () => {
           }}
         >
           <img
-            src='img/backButton.svg'
+            src='./backButton.svg'
             alt='button-back'
             style={{ filter: theme.buttons }}
           />
         </p>
         <p>
           <img
-            src='img/next.svg'
+            src='./next.svg'
             alt='button-next'
             style={{ filter: theme.buttons }}
           />

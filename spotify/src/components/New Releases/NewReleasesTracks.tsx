@@ -51,6 +51,7 @@ export const NewReleasesTracks = () => {
                 trackName={track.name}
                 artist={track.artists[0].name}
                 preview={track.preview_url}
+                onClick={() => {}}
               />
             );
           })}

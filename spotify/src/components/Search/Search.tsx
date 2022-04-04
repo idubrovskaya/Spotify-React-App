@@ -19,6 +19,9 @@ import { SearchResults, ISearchResults } from '../SearchResults/SearchResults';
 import { Track } from '../Tracks/Track';
 import { Loader } from '../Loader/Loader';
 
+import { playSong } from '../../redux/actions/playerActions';
+import { ISong } from '../../redux/reducers/spotifyReducers';
+
 export const Search = () => {
   const token = localStorage.getItem('access_token');
 
@@ -49,7 +52,9 @@ export const Search = () => {
     };
   }, [search, token]);
 
-  console.log('songs', songs);
+  const onClickSong = (song: ISong, index: number) => {
+    dispatch(playSong(song, songs, index));
+  };
 
   return (
     <div className={styles.body} style={{ background: theme.backgroundMain }}>
@@ -65,7 +70,7 @@ export const Search = () => {
           <h1>No songs</h1>
         ) : (
           songs?.map((song: any, i: number) => {
-            return song.name ? (
+            return (
               <Track
                 index={i !== 0 ? i + 1 : 1}
                 key={song.id + Math.random().toString(16).slice(2)}
@@ -76,9 +81,8 @@ export const Search = () => {
                 album={song.album.name}
                 added={song?.album.release_date}
                 preview={song.preview_url}
+                onClick={() => onClickSong(song, i)}
               />
-            ) : (
-              <Loader />
             );
           })
         )}

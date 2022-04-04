@@ -15,6 +15,7 @@ import {
   featuredPlaylists,
 } from './reducers/categoryReducer';
 import { tracksReducer, ITracks } from './reducers/tracksReducer';
+import { IPlayerState, playerReducer } from './reducers/playerReducer';
 
 export interface IState {
   songReducer: ISongsState;
@@ -24,6 +25,7 @@ export interface IState {
   newReleasesReducer: INewReleases;
   newTracksReducer: INewAlbum;
   featuredPlaylists: IFeaturedPlaylists;
+  playerReducer: IPlayerState;
 }
 
 export const store = createStore(
@@ -35,6 +37,7 @@ export const store = createStore(
     newReleasesReducer,
     newTracksReducer,
     featuredPlaylists,
+    playerReducer,
   }),
   composeWithDevTools(applyMiddleware(thunk))
 );

@@ -1,19 +1,38 @@
-import { ACTIONS } from '../constants';
+import { ACTIONS } from "../constants";
+
+interface IAlbumImage {
+  height: number;
+  url: string;
+  width: number;
+}
+
+interface IArtist {
+  href: string;
+  id: string;
+  name: string;
+  type: string;
+  uri: string;
+}
 
 export interface ISong {
   image: string;
   songName: string;
   artist: string;
+  preview_url: string;
+  album: {
+    images: IAlbumImage[];
+  };
+  artists: IArtist[];
 }
 
 export interface ISongsState {
   songs: ISong[];
-  searchedSongsRequest: '';
+  searchedSongsRequest: "";
 }
 
 const defaultState: ISongsState = {
   songs: [],
-  searchedSongsRequest: '',
+  searchedSongsRequest: "",
 };
 
 export const songReducer = (state = defaultState, action: any) => {

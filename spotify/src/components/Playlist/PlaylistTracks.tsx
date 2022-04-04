@@ -51,6 +51,7 @@ export const PlaylistTracks = () => {
                 album={track.track?.album.name}
                 added={track?.added_at}
                 preview={track.track?.preview_url}
+                onClick={() => {}}
               />
             );
           })}

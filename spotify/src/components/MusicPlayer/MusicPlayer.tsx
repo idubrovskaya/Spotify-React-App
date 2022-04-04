@@ -9,8 +9,17 @@ import SkipPreviousOutlinedIcon from '@mui/icons-material/SkipPreviousOutlined';
 import QueueMusicOutlinedIcon from '@mui/icons-material/QueueMusicOutlined';
 import VolumeUpOutlinedIcon from '@mui/icons-material/VolumeUpOutlined';
 import { Slider } from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
 
-export const MusicPlayer = ({ imgSrc, artist, songTitle, songSrc }: any) => {
+import { IState } from '../../redux/store';
+import { playNextSong, playPrevSong } from '../../redux/actions/playerActions';
+
+export const MusicPlayer = ({ imgSrc, songTitle }: any) => {
+  const song = useSelector((state: IState) => state.playerReducer.song);
+  const songSrc = song?.preview_url;
+  const artist = song?.artists[0].name;
+  const dispatch = useDispatch();
+
   const localToken = localStorage.getItem('access_token');
 
   const { theme } = useContext(Context);
@@ -22,7 +31,7 @@ export const MusicPlayer = ({ imgSrc, artist, songTitle, songSrc }: any) => {
 
   // Refs
   const audioRef = useRef(new Audio(songSrc));
-  const intervalRef = useRef();
+  const intervalRef: { current: NodeJS.Timeout | null } = useRef(null);
   const isReady = useRef(false);
 
   const { duration } = audioRef.current;
@@ -45,6 +54,18 @@ export const MusicPlayer = ({ imgSrc, artist, songTitle, songSrc }: any) => {
     };
   }, []);
 
+  const startTimer = () => {
+    clearInterval(intervalRef.current);
+
+    intervalRef.current = setInterval(() => {
+      if (audioRef.current.ended) {
+        toNextTrack();
+      } else {
+        setSongProgress(audioRef.current.currentTime);
+      }
+    }, 1000);
+  };
+
   useEffect(() => {
     audioRef.current.pause();
 
@@ -54,42 +75,23 @@ export const MusicPlayer = ({ imgSrc, artist, songTitle, songSrc }: any) => {
     if (isReady.current) {
       audioRef.current.play();
       setIsPlaying(true);
-      startTimer();
+      // startTimer();
     } else {
       isReady.current = true;
     }
-  }, [songIndex]);
-
-  const startTimer = () => {
-    // clearInterval(intervalRef.current);
-    // intervalRef.current = setInterval(() => {
-    //   if (audioRef.current.ended) {
-    //     toNextTrack();
-    //   } else {
-    //     setSongProgress(audioRef.current.currentTime);
-    //   }
-    // }, [1000]);
-  };
+  }, [songSrc]);
 
   const playPauseTrack = () => {
     console.log('TODO play pause');
   };
   // как передать песни из списка ?
   const toPrevTrack = () => {
-    // if (songIndex - 1 < 0) {
-    //   setSongIndex(song.length - 1);
-    // } else {
-    //   setSongIndex(songIndex - 1);
-    // }
+    dispatch(playPrevSong());
     console.log('TODO go to prev');
   };
 
   const toNextTrack = () => {
-    // if (songIndex < song.length - 1) {
-    //   setSongIndex(songIndex + 1);
-    // } else {
-    //   setSongIndex(0);
-    // }
+    dispatch(playNextSong());
     console.log('TODO go to next');
   };
 
@@ -106,10 +108,14 @@ export const MusicPlayer = ({ imgSrc, artist, songTitle, songSrc }: any) => {
     startTimer();
   };
 
-  return (
+  return song ? (
     <div className={styles.footer} style={{ background: theme.player }}>
       <div className={styles.songDetails}>
-        <img className={styles.albumArt} src={imgSrc} alt='album-image' />
+        <img
+          className={styles.albumArt}
+          src={song?.album?.images[0].url}
+          alt='album'
+        />
         <div className={styles.songInfo}>
           <h4>{songTitle}</h4>
           <p>{artist}</p>
@@ -157,5 +163,5 @@ export const MusicPlayer = ({ imgSrc, artist, songTitle, songSrc }: any) => {
         <Slider />
       </div>
     </div>
-  );
+  ) : null;
 };
