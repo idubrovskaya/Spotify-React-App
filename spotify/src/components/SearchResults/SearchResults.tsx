@@ -1,4 +1,4 @@
-import styles from './SearchResults.module.css';
+import styles from "./SearchResults.module.css";
 
 export interface ISearchResults {
   image: string;
@@ -6,6 +6,7 @@ export interface ISearchResults {
   artistName: string;
   albumName: string;
   previewUrl: string;
+  onClick: () => void;
 }
 
 export const SearchResults = ({
@@ -14,10 +15,11 @@ export const SearchResults = ({
   artistName,
   albumName,
   previewUrl,
+  onClick,
 }: ISearchResults) => {
   return (
-    <div className={styles.track}>
-      <img src={image} alt='album-image' />
+    <div className={styles.track} onClick={onClick}>
+      <img src={image} alt="album-image" />
       <p className={styles.artist}>{artistName}</p>
 
       <p className={styles.albumName}>{albumName}</p>
