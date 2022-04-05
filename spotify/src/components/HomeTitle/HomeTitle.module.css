@@ -1,7 +1,10 @@
 .title {
-  position: relative;
+  display: flex;
   margin: 15px;
   text-align: center;
+  width: 100%;
+}
+.inactive {
   width: 100%;
 }
 

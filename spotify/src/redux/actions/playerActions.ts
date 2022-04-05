@@ -1,5 +1,5 @@
-import { ACTIONS } from "../constants";
-import { ISong } from "../reducers/spotifyReducers";
+import { ACTIONS } from '../constants';
+import { ISong } from '../reducers/spotifyReducers';
 
 export const playSong = (song: ISong, playlist: ISong[], songIndex: number) => {
   return {
@@ -19,5 +19,12 @@ export const playPrevSong = () => {
 export const playNextSong = () => {
   return {
     type: ACTIONS.PLAY_NEXT_SONG,
+  };
+};
+
+export const updateVolume = (volume: number) => {
+  return {
+    type: ACTIONS.UPDATE_VOLUME,
+    volume,
   };
 };

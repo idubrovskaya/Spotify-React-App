@@ -1,6 +1,7 @@
 import styles from './FeaturedPlaylists.module.css';
 
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
+import { Context } from '../../App';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import {
@@ -15,6 +16,8 @@ import { Loader } from '../Loader/Loader';
 
 export const FeaturedPlaylists = () => {
   const token = localStorage.getItem('access_token');
+
+  const { theme } = useContext(Context);
 
   const history = useHistory();
 
@@ -34,7 +37,7 @@ export const FeaturedPlaylists = () => {
   console.log('feat', featuredPlaylists);
 
   return (
-    <div className={styles.main}>
+    <div className={styles.main} style={{ background: theme.backgroundMain }}>
       <Header />
       <HomeTitle />
 

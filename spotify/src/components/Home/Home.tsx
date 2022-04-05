@@ -1,5 +1,5 @@
 import styles from './Home.module.css';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { GenresCard } from '../Genres/GenresCard';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,8 +11,10 @@ import {
 import { Header } from '../Header/Header';
 import { Loader } from '../Loader/Loader';
 import { HomeTitle } from '../HomeTitle/HomeTitle';
+import { Context } from '../../App';
 
 export const Home = () => {
+  const { theme } = useContext(Context);
   const token = localStorage.getItem('access_token');
 
   const history = useHistory();
@@ -30,8 +32,10 @@ export const Home = () => {
     };
   }, [token]);
 
+  console.log(categories);
+
   return (
-    <div className={styles.main}>
+    <div className={styles.main} style={{ background: theme.backgroundMain }}>
       <Header />
       <HomeTitle />
       {categories.length !== 0 ? (

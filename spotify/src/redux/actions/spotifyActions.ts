@@ -27,6 +27,7 @@ export function fetchSearchedSongs(search: string) {
     );
 
     dispatch(searchSongs(response.tracks.items));
+    console.log('search tracks', response.tracks.items);
   };
 }
 
@@ -128,6 +129,7 @@ export function fetchTracks(playlist_id: string) {
   return async (dispatch: Dispatch) => {
     const response = await spotifyFetch(`/playlists/${playlist_id}`);
     dispatch(getTracks(response.tracks.items));
+    console.log('trscks', response);
   };
 }
 

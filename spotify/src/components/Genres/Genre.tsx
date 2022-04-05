@@ -1,4 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
+import { Context } from '../../App';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import {
@@ -13,6 +15,8 @@ import styles from './Genres.module.css';
 
 export const Genre = () => {
   const token = localStorage.getItem('access_token');
+
+  const { theme } = useContext(Context);
 
   const params: { category_id: string } = useParams();
   const dispatch = useDispatch();
@@ -29,7 +33,10 @@ export const Genre = () => {
   console.log('genre', genre);
 
   return (
-    <div className={styles.categoryPlaylists}>
+    <div
+      className={styles.categoryPlaylists}
+      style={{ background: theme.backgroundMain }}
+    >
       <Header />
       <div className={styles.playlists}>
         {genre.length === 0 ? (

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { clearContent, fetchTracks } from '../../redux/actions/spotifyActions';
@@ -7,9 +7,14 @@ import { Header } from '../Header/Header';
 import { Loader } from '../Loader/Loader';
 import { Track } from '../Tracks/Track';
 import styles from './Playlist.module.css';
+import { Context } from '../../App';
+import { ISong } from '../../redux/reducers/spotifyReducers';
+import { playSong } from '../../redux/actions/playerActions';
 
 export const PlaylistTracks = () => {
   const token = localStorage.getItem('access_token');
+
+  const { theme } = useContext(Context);
 
   const params: { playlist_id: string } = useParams();
 
@@ -24,10 +29,17 @@ export const PlaylistTracks = () => {
     };
   }, [token]);
 
+  const onClickSongs = (track: ISong, index: number) => {
+    dispatch(playSong(track, tracks, index));
+  };
+
   console.log('треки', tracks);
 
   return (
-    <div className={styles.wrapper}>
+    <div
+      className={styles.wrapper}
+      style={{ background: theme.backgroundMain }}
+    >
       <Header />
       {tracks.length === 0 ? (
         <Loader />
@@ -36,8 +48,8 @@ export const PlaylistTracks = () => {
           {tracks.map((track: any, i: number) => {
             return (
               <Track
-                key={track.id}
-                id={track.id}
+                key={track.track?.id + Math.random().toString(16).slice(2)}
+                id={track.track?.id}
                 index={i !== 0 ? i + 1 : 1}
                 image={track.track?.album?.images[0]?.url}
                 trackName={track.track?.name}
@@ -45,6 +57,7 @@ export const PlaylistTracks = () => {
                 album={track.track?.album.name}
                 added={track?.added_at}
                 preview={track.track?.preview_url}
+                onClick={() => onClickSongs(track.track, i)}
               />
             );
           })}

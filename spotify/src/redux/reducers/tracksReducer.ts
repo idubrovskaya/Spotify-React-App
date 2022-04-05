@@ -1,15 +1,8 @@
 import { ACTIONS } from '../constants';
-
-export interface IAllTracks {
-  image: string;
-  trackName: string;
-  artistName: string;
-  albumName: string;
-  previewUrl: string;
-}
+import { ISong } from './spotifyReducers';
 
 export interface ITracks {
-  track: IAllTracks[];
+  track: ISong[];
 }
 
 const defaultState: ITracks = {

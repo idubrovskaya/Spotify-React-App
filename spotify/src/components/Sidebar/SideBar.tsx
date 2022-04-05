@@ -1,9 +1,17 @@
 import styles from './SideBar.module.css';
 import { NavLink } from 'react-router-dom';
+import { useContext } from 'react';
+import { Context } from '../../App';
+import { SwitchThemeToggle } from '../SwitchThemeToggle/SwitchThemeToggle';
 
 export const SideBar = () => {
+  const { theme, isDark, changeIsDark } = useContext(Context);
+
   return (
-    <div className={styles.sidebar}>
+    <div
+      className={styles.sidebar}
+      style={{ background: theme.backgroundSidebar }}
+    >
       <div className={styles.menuNavigation}>
         <img src='img/spotify_logo_green.svg' />
         <ul>
@@ -12,6 +20,8 @@ export const SideBar = () => {
               exact
               to='/'
               className={styles.link}
+              style={{ color: theme.sidebarNavigation }}
+              activeStyle={{ color: theme.sidebarNavigationActive }}
               activeClassName={styles.active}
             >
               Home
@@ -21,6 +31,8 @@ export const SideBar = () => {
             <NavLink
               to='/search'
               className={styles.link}
+              style={{ color: theme.sidebarNavigation }}
+              activeStyle={{ color: theme.sidebarNavigationActive }}
               activeClassName={styles.active}
             >
               Search
@@ -30,6 +42,8 @@ export const SideBar = () => {
             <NavLink
               to='/liked_songs'
               className={styles.link}
+              style={{ color: theme.sidebarNavigation }}
+              activeStyle={{ color: theme.sidebarNavigationActive }}
               activeClassName={styles.active}
             >
               Playlist
@@ -37,6 +51,10 @@ export const SideBar = () => {
           </li>
         </ul>
       </div>
+      <SwitchThemeToggle
+        inputChecked={isDark ? true : false}
+        onClick={changeIsDark}
+      />{' '}
       <div className={styles.albumArtwork}></div>
     </div>
   );

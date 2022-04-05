@@ -1,5 +1,5 @@
-import { ACTIONS } from "../constants";
-import { ISong } from "./spotifyReducers";
+import { ACTIONS } from '../constants';
+import { ISong } from './spotifyReducers';
 
 export interface IPlayerState {
   playlist: ISong[];
@@ -51,5 +51,22 @@ export const playerReducer = (state = defaultState, action: any) => {
     return { ...state, song: state.playlist[nextIndex], songIndex: nextIndex };
   }
 
+  return state;
+};
+
+export interface ISound {
+  volume: number;
+}
+
+const defaultSound: ISound = {
+  volume: 50,
+};
+
+export const soundReducer = (state = defaultSound, action: any) => {
+  if (action.type === ACTIONS.UPDATE_VOLUME) {
+    return {
+      volume: action.volume,
+    };
+  }
   return state;
 };

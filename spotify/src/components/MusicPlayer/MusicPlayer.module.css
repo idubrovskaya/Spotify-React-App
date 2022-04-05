@@ -5,7 +5,7 @@
   bottom: 0;
   height: 90px;
   width: 100%;
-  background: #1db954;
+  background: #040404;
 }
 
 .songDetails {
@@ -32,7 +32,7 @@
 }
 
 .player:hover {
-  color: white;
+  color: #1db954;
   transition: transform 0.2s ease-in-out;
   transform: scale(1.3) !important;
 }
@@ -44,7 +44,7 @@
   justify-content: center;
   max-width: 450px;
   flex: 0.6;
-  color: black;
+  color: white;
 }
 
 .volumeControl {

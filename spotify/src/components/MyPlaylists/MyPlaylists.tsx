@@ -1,5 +1,6 @@
 import styles from './MyPlaylists.module.css';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { Context } from '../../App';
 import { spotifyFetch } from '../../spotify';
 import { UserInfo } from '../User/UserInfo';
 import { Header } from '../Header/Header';
@@ -7,6 +8,8 @@ import { Loader } from '../Loader/Loader';
 
 export const MyPlaylists = () => {
   const token = localStorage.getItem('access_token');
+
+  const { theme } = useContext(Context);
 
   const [savedTracks, setSavedTracks] = useState<any>([]);
   console.log('tracks', savedTracks);
@@ -24,9 +27,15 @@ export const MyPlaylists = () => {
   // console.log('playlist', playlist);
 
   return (
-    <div className={styles.myPlaylist}>
+    <div
+      className={styles.myPlaylist}
+      style={{ background: theme.likedSongsBackground }}
+    >
       <Header />
-      <div className={styles.wrapper}>
+      <div
+        className={styles.wrapper}
+        style={{ background: theme.likedSongsTitle }}
+      >
         <div className={styles.title}>
           <div className={styles.likeImg}>
             <img src='img/liked_songs.png' />

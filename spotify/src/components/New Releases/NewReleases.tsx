@@ -1,5 +1,7 @@
 import styles from '../Home/Home.module.css';
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
+import { Context } from '../../App';
+
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '../../redux/store';
@@ -14,6 +16,8 @@ import { HomeTitle } from '../HomeTitle/HomeTitle';
 
 export const NewReleases = () => {
   const token = localStorage.getItem('access_token');
+
+  const { theme } = useContext(Context);
 
   const history = useHistory();
 
@@ -33,7 +37,7 @@ export const NewReleases = () => {
   console.log('new', newReleases);
 
   return (
-    <div className={styles.main}>
+    <div className={styles.main} style={{ background: theme.backgroundMain }}>
       <Header />
       <HomeTitle />
       {newReleases.length !== 0 ? (

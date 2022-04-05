@@ -1,17 +1,16 @@
 .main {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+
   flex: 0.9;
   color: white;
   overflow-y: auto;
-  margin-bottom: 48px;
+  /* margin-bottom: 48px; */
   height: 100vh;
 }
 
 .categories {
   display: flex;
   flex-wrap: wrap;
-
   margin: 50px 178px 150px;
-  overflow-y: auto;
 }

@@ -4,7 +4,7 @@ import styles from './HomeTitle.module.css';
 export const HomeTitle = () => {
   return (
     <div className={styles.title}>
-      <p className={styles.inactive}>
+      <div className={styles.inactive}>
         <NavLink to='/' activeStyle={{ color: 'green' }}>
           Categories
         </NavLink>
@@ -14,7 +14,7 @@ export const HomeTitle = () => {
         <NavLink to='/new_releases' activeStyle={{ color: 'green' }}>
           New Releases
         </NavLink>
-      </p>
+      </div>
     </div>
   );
 };
