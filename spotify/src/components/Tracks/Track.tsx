@@ -1,6 +1,8 @@
 import styles from './Track.module.css';
 import { Context } from '../../App';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
+import PauseCircleOutlined from '@mui/icons-material/PauseCircleOutlined';
+import PlayCircleOutlined from '@mui/icons-material/PlayCircleOutlined';
 
 export interface ITrack {
   id: string;
@@ -44,7 +46,6 @@ export const Track = ({
         <p className={styles.date}>
           {added?.slice(0, 10).split('-').reverse().join('.')}
         </p>
-        <audio src={preview} controls />
       </div>
     </div>
   );

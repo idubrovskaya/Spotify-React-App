@@ -27,6 +27,7 @@ export function fetchSearchedSongs(search: string) {
     );
 
     dispatch(searchSongs(response.tracks.items));
+    console.log('search tracks', response.tracks.items);
   };
 }
 

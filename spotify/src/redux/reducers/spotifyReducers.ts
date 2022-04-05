@@ -1,4 +1,4 @@
-import { ACTIONS } from "../constants";
+import { ACTIONS } from '../constants';
 
 interface IAlbumImage {
   height: number;
@@ -27,12 +27,12 @@ export interface ISong {
 
 export interface ISongsState {
   songs: ISong[];
-  searchedSongsRequest: "";
+  searchedSongsRequest: '';
 }
 
 const defaultState: ISongsState = {
   songs: [],
-  searchedSongsRequest: "",
+  searchedSongsRequest: '',
 };
 
 export const songReducer = (state = defaultState, action: any) => {

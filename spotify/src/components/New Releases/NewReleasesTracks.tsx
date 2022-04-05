@@ -11,6 +11,8 @@ import { Loader } from '../Loader/Loader';
 import { Track } from '../Tracks/Track';
 import { Context } from '../../App';
 import { useContext } from 'react';
+import { playSong } from '../../redux/actions/playerActions';
+import { ISong } from '../../redux/reducers/spotifyReducers';
 
 import styles from './NewReleases.module.css';
 
@@ -35,7 +37,9 @@ export const NewReleasesTracks = () => {
     };
   }, [token]);
 
-  console.log('новые треки', newTracks);
+  const onClickSong = (track: ISong, index: number) => {
+    dispatch(playSong(track, newTracks, index));
+  };
 
   return (
     <div className={styles.main} style={{ background: theme.backgroundMain }}>
@@ -46,12 +50,13 @@ export const NewReleasesTracks = () => {
             return (
               <Track
                 index={i !== 0 ? i + 1 : 1}
-                key={track.id}
+                key={track.id + Math.random().toString(16).slice(2)}
                 id={track.id}
+                // image={track?.images[0]?.url}
                 trackName={track.name}
                 artist={track.artists[0].name}
                 preview={track.preview_url}
-                onClick={() => {}}
+                onClick={() => onClickSong(track, i)}
               />
             );
           })}

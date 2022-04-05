@@ -1,3 +1,20 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  /* flex-wrap: wrap; */
+  flex: 0.9;
+  color: white;
+  overflow-y: auto;
+  margin-bottom: 48px;
+  height: 100vh;
+}
+
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 50px 178px 150px;
+}
+
 .card {
   position: relative;
   padding: 10px;

@@ -3,6 +3,8 @@ import { Context } from '../../App';
 import { useHistory } from 'react-router-dom';
 import { UserInfo } from '../User/UserInfo';
 import styles from './Header.module.css';
+import backButton from './backButton.svg';
+import nextButton from './next.svg';
 
 export const Header = () => {
   const { theme } = useContext(Context);
@@ -17,14 +19,14 @@ export const Header = () => {
           }}
         >
           <img
-            src='./backButton.svg'
+            src={backButton}
             alt='button-back'
             style={{ filter: theme.buttons }}
           />
         </p>
         <p>
           <img
-            src='./next.svg'
+            src={nextButton}
             alt='button-next'
             style={{ filter: theme.buttons }}
           />

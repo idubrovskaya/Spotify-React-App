@@ -1,6 +1,7 @@
 import { ACTIONS } from '../constants';
 import { IGenresCard } from '../../components/Genres/GenresCard';
 import { INewReleasesCard } from '../../components/New Releases/NewReleasesCard';
+import { ISong } from './spotifyReducers';
 
 //
 
@@ -61,7 +62,7 @@ export const categoryReducer = (state = defaultState, action: any) => {
 //new releases
 
 export interface INewReleases {
-  newReleases: INewReleasesCard[][];
+  newReleases: INewReleasesCard[];
 }
 
 const defaultStateNewReleases: INewReleases = {
@@ -88,7 +89,7 @@ export const newReleasesReducer = (
 };
 
 export interface INewAlbum {
-  newReleasesTracks: INewReleasesCard[][];
+  newReleasesTracks: ISong[];
 }
 
 const defaultStateNewTracks: INewAlbum = {
@@ -117,7 +118,8 @@ export const newTracksReducer = (
 // featured playlists
 
 export interface IFeaturedPlaylists {
-  featuredPlaylists: INewReleasesCard[][];
+  // featuredPlaylists: ISong[];
+  featuredPlaylists: INewReleasesCard[];
 }
 
 const defaultStateFeaturedPlaylists: IFeaturedPlaylists = {
