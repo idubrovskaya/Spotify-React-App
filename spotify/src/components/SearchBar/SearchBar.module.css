@@ -5,7 +5,7 @@
   z-index: 1000;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   background: #111;
 }
 
@@ -24,8 +24,7 @@
 /* Search bar */
 
 .search {
-  /* position: relative; */
-  margin: 0 50px;
+  margin: 18px 418px;
 }
 
 .search input {
@@ -48,7 +47,7 @@
 .userDetails {
   display: flex;
   align-items: center;
-  margin: 0 50px;
+  margin: 0 45px;
 }
 
 .userDetails img {

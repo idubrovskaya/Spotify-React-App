@@ -1,23 +1,33 @@
-import { SearchBar } from "../SearchBar/SearchBar";
-import styles from "./Body.module.css";
-import { getTokenFromUrl, spotifyFetch } from "../../spotify";
-import { useState, useCallback, useEffect, ChangeEvent } from "react";
-
-import { useDispatch, useSelector } from "react-redux";
+import { SearchBar } from '../SearchBar/SearchBar';
+import styles from './Body.module.css';
+import { getTokenFromUrl, spotifyFetch } from '../../spotify';
+import {
+  useState,
+  useCallback,
+  useEffect,
+  ChangeEvent,
+  useContext,
+} from 'react';
+import { Context } from '../../App';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   clearContent,
   fetchSearchedSongs,
-} from "../../redux/actions/spotifyActions";
-import { IState } from "../../redux/store";
-import { SearchResults, ISearchResults } from "../SearchResults/SearchResults";
-import { Track } from "../Tracks/Track";
-import { playSong } from "../../redux/actions/playerActions";
-import { ISong } from "../../redux/reducers/spotifyReducers";
+} from '../../redux/actions/spotifyActions';
+import { IState } from '../../redux/store';
+import { SearchResults, ISearchResults } from '../SearchResults/SearchResults';
+import { Track } from '../Tracks/Track';
+import { Loader } from '../Loader/Loader';
+
+import { playSong } from '../../redux/actions/playerActions';
+import { ISong } from '../../redux/reducers/spotifyReducers';
 
 export const Search = () => {
-  const token = localStorage.getItem("access_token");
+  const token = localStorage.getItem('access_token');
 
-  const [search, setSearch] = useState("");
+  const { theme } = useContext(Context);
+
+  const [search, setSearch] = useState('');
   const songs = useSelector((state: IState) => state.songReducer.songs); //для мэппинга альбома/песни/артиста
 
   const handleSearchInputChanges = useCallback(
@@ -30,7 +40,7 @@ export const Search = () => {
   const dispatch = useDispatch();
 
   const handleEnter = (event: any) => {
-    if (event.key === "Enter") {
+    if (event.key === 'Enter') {
       dispatch(fetchSearchedSongs(search));
     }
   };
@@ -47,7 +57,7 @@ export const Search = () => {
   };
 
   return (
-    <div className={styles.body}>
+    <div className={styles.body} style={{ background: theme.backgroundMain }}>
       <div className={styles.headerSearch}>
         <SearchBar
           value={search}
@@ -60,7 +70,7 @@ export const Search = () => {
           <h1>No songs</h1>
         ) : (
           songs?.map((song: any, i: number) => {
-            return song.name || songs.length !== 0 ? (
+            return (
               <Track
                 index={i !== 0 ? i + 1 : 1}
                 key={song.id + Math.random().toString(16).slice(2)}
@@ -73,8 +83,6 @@ export const Search = () => {
                 preview={song.preview_url}
                 onClick={() => onClickSong(song, i)}
               />
-            ) : (
-              <h1>NOTHING</h1>
             );
           })
         )}

@@ -1,12 +1,20 @@
 import styles from './MyPlaylists.module.css';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { Context } from '../../App';
 import { spotifyFetch } from '../../spotify';
 import { UserInfo } from '../User/UserInfo';
 import { Header } from '../Header/Header';
 import { Loader } from '../Loader/Loader';
+import { ISong } from '../../redux/reducers/spotifyReducers';
+import { playSong } from '../../redux/actions/playerActions';
+import { useDispatch } from 'react-redux';
 
 export const MyPlaylists = () => {
   const token = localStorage.getItem('access_token');
+
+  const dispatch = useDispatch();
+
+  const { theme } = useContext(Context);
 
   const [savedTracks, setSavedTracks] = useState<any>([]);
   console.log('tracks', savedTracks);
@@ -23,10 +31,20 @@ export const MyPlaylists = () => {
   // const [playlist, setPlaylist] = useState<any>([]);
   // console.log('playlist', playlist);
 
+  const onClickSongs = (track: ISong, index: number) => {
+    dispatch(playSong(track, savedTracks, index));
+  };
+
   return (
-    <div className={styles.myPlaylist}>
+    <div
+      className={styles.myPlaylist}
+      style={{ background: theme.likedSongsBackground }}
+    >
       <Header />
-      <div className={styles.wrapper}>
+      <div
+        className={styles.wrapper}
+        style={{ background: theme.likedSongsTitle }}
+      >
         <div className={styles.title}>
           <div className={styles.likeImg}>
             <img src='img/liked_songs.png' />
@@ -41,9 +59,12 @@ export const MyPlaylists = () => {
       <div className={styles.mainContent}>
         {savedTracks.length !== 0 ? (
           <div className={styles.playlist}>
-            {savedTracks[0]?.items?.map((track: any) => {
+            {savedTracks[0]?.items?.map((track: any, i: number) => {
               return (
-                <div className={styles.card}>
+                <div
+                  className={styles.card}
+                  onClick={() => onClickSongs(track.track, i)}
+                >
                   <div>
                     <img
                       src={track.track.album.images[0].url}

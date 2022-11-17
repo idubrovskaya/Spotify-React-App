@@ -1,34 +1,39 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useContext } from 'react';
+import { Context } from '../../App';
 
-import styles from "./MusicPlayer.module.css";
-import PlayCircleOutlinedIcon from "@mui/icons-material/PlayCircleOutlined";
-import PauseCircleOutlinedIcon from "@mui/icons-material/PauseCircleOutlined";
-import SkipNextOutlinedIcon from "@mui/icons-material/SkipNextOutlined";
-import SkipPreviousOutlinedIcon from "@mui/icons-material/SkipPreviousOutlined";
-import QueueMusicOutlinedIcon from "@mui/icons-material/QueueMusicOutlined";
-import VolumeUpOutlinedIcon from "@mui/icons-material/VolumeUpOutlined";
-import { Slider } from "@material-ui/core";
-import { useDispatch, useSelector } from "react-redux";
+import styles from './MusicPlayer.module.css';
+import PlayCircleOutlinedIcon from '@mui/icons-material/PlayCircleOutlined';
+import PauseCircleOutlinedIcon from '@mui/icons-material/PauseCircleOutlined';
+import SkipNextOutlinedIcon from '@mui/icons-material/SkipNextOutlined';
+import SkipPreviousOutlinedIcon from '@mui/icons-material/SkipPreviousOutlined';
+import QueueMusicOutlinedIcon from '@mui/icons-material/QueueMusicOutlined';
+import VolumeUpOutlinedIcon from '@mui/icons-material/VolumeUpOutlined';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { IState } from "../../redux/store";
-import { playNextSong, playPrevSong } from "../../redux/actions/playerActions";
+import { IState } from '../../redux/store';
+import {
+  playNextSong,
+  playPrevSong,
+  playSong,
+  updateVolume,
+} from '../../redux/actions/playerActions';
 
-export const MusicPlayer = ({ imgSrc, songTitle }: any) => {
+export const MusicPlayer = ({ songTitle }: any) => {
   const song = useSelector((state: IState) => state.playerReducer.song);
   const songSrc = song?.preview_url;
-  const artist = song?.artists[0].name;
+  // const artist = song?.artists[0].name;
   const dispatch = useDispatch();
 
-  const localToken = localStorage.getItem("access_token");
+  const { theme } = useContext(Context);
 
   // State
-  const [songIndex, setSongIndex] = useState(0);
   const [songProgress, setSongProgress] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  // const [volume, setVolume] = useState(50);
 
   // Refs
   const audioRef = useRef(new Audio(songSrc));
-  const intervalRef = useRef();
+  const intervalRef: { current: NodeJS.Timeout | null } = useRef(null);
   const isReady = useRef(false);
 
   const { duration } = audioRef.current;
@@ -38,7 +43,7 @@ export const MusicPlayer = ({ imgSrc, songTitle }: any) => {
       audioRef.current.play();
       startTimer();
     } else {
-      clearInterval(intervalRef.current);
+      clearInterval(intervalRef.current as NodeJS.Timeout);
       audioRef.current.pause();
     }
   }, [isPlaying]);
@@ -47,12 +52,12 @@ export const MusicPlayer = ({ imgSrc, songTitle }: any) => {
     return () => {
       //очищаем, когда трек прекратил играть
       audioRef.current.pause();
-      clearInterval(intervalRef.current);
+      clearInterval(intervalRef.current as NodeJS.Timeout);
     };
   }, []);
 
   const startTimer = () => {
-    clearInterval(intervalRef.current);
+    clearInterval(intervalRef.current as NodeJS.Timeout);
 
     intervalRef.current = setInterval(() => {
       if (audioRef.current.ended) {
@@ -60,7 +65,7 @@ export const MusicPlayer = ({ imgSrc, songTitle }: any) => {
       } else {
         setSongProgress(audioRef.current.currentTime);
       }
-    }, [1000]);
+    }, 1000);
   };
 
   useEffect(() => {
@@ -72,39 +77,28 @@ export const MusicPlayer = ({ imgSrc, songTitle }: any) => {
     if (isReady.current) {
       audioRef.current.play();
       setIsPlaying(true);
-      // startTimer();
     } else {
       isReady.current = true;
     }
   }, [songSrc]);
 
-  const startTimer = () => {
-    // clearInterval(intervalRef.current);
-    // intervalRef.current = setInterval(() => {
-    //   if (audioRef.current.ended) {
-    //     toNextTrack();
-    //   } else {
-    //     setSongProgress(audioRef.current.currentTime);
-    //   }
-    // }, [1000]);
-  };
-
   const playPauseTrack = () => {
-    console.log("TODO play pause");
+    audioRef.current.pause();
+    setIsPlaying(!isPlaying);
+    console.log('TODO play pause');
   };
-  // как передать песни из списка ?
   const toPrevTrack = () => {
     dispatch(playPrevSong());
-    console.log("TODO go to prev");
+    console.log('TODO go to prev');
   };
 
   const toNextTrack = () => {
     dispatch(playNextSong());
-    console.log("TODO go to next");
+    console.log('TODO go to next');
   };
 
   const onScrub = (value: any) => {
-    clearInterval(intervalRef.current);
+    clearInterval(intervalRef.current as NodeJS.Timeout);
     audioRef.current.currentTime = value;
     setSongProgress(audioRef.current.currentTime);
   };
@@ -116,30 +110,44 @@ export const MusicPlayer = ({ imgSrc, songTitle }: any) => {
     startTimer();
   };
 
+  const currentPercentage = duration
+    ? `${(songProgress / duration) * 100}%`
+    : '0%';
+
+  const trackStyling = `
+  -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #fff), color-stop(${currentPercentage}, #1db954))
+`;
+
+  const updateVol = (e: any) => {
+    // setVolume(e.target.value);
+    dispatch(updateVolume(e.target.value));
+  };
+
   return song ? (
-    <div className={styles.footer}>
+    <div className={styles.footer} style={{ background: theme.player }}>
       <div className={styles.songDetails}>
         <img
           className={styles.albumArt}
           src={song?.album?.images[0].url}
-          alt="album"
+          alt='album'
         />
         <div className={styles.songInfo}>
           <h4>{songTitle}</h4>
-          <p>{artist}</p>
+          {/* <p>{artist}</p> */}
         </div>
       </div>
       <div className={styles.playerControl}>
         <div className={styles.progress}>
           <input
-            type="range"
+            type='range'
             value={songProgress}
-            step="1"
-            min="0"
+            step='1'
+            min='0'
             max={duration ? duration : `${duration}`}
             onChange={(e) => onScrub(e.target.value)}
             onMouseUp={onScrubEnd}
             onKeyUp={onScrubEnd}
+            style={{ background: trackStyling }}
           />
         </div>
         <div className={styles.audioControl}>
@@ -166,9 +174,15 @@ export const MusicPlayer = ({ imgSrc, songTitle }: any) => {
         </div>
       </div>
       <div className={styles.volumeControl}>
-        <QueueMusicOutlinedIcon />
+        {/* <QueueMusicOutlinedIcon />
         <VolumeUpOutlinedIcon />
-        <Slider />
+        <input
+          type='range'
+          value={}
+          min={0}
+          max={100}
+          onChange={(e) => updateVol(e.target.value)}
+        /> */}
       </div>
     </div>
   ) : null;

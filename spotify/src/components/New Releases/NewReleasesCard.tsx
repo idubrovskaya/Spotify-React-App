@@ -1,4 +1,6 @@
 import styles from './NewReleases.module.css';
+import { Context } from '../../App';
+import { useContext } from 'react';
 
 export interface INewReleasesCard {
   id: string;
@@ -12,10 +14,12 @@ export const NewReleasesCard = ({
   title,
   onClick,
 }: INewReleasesCard) => {
+  const { theme } = useContext(Context);
+
   return (
     <div onClick={onClick} className={styles.card}>
       <img src={image} />
-      <p>{title}</p>
+      <p style={{ color: theme.newReleasesTextCard }}>{title}</p>
     </div>
   );
 };

@@ -1,4 +1,8 @@
-import styles from "./Track.module.css";
+import styles from './Track.module.css';
+import { Context } from '../../App';
+import { useContext, useState } from 'react';
+import PauseCircleOutlined from '@mui/icons-material/PauseCircleOutlined';
+import PlayCircleOutlined from '@mui/icons-material/PlayCircleOutlined';
 
 export interface ITrack {
   id: string;
@@ -23,20 +27,25 @@ export const Track = ({
   index,
   onClick,
 }: ITrack) => {
+  const { theme } = useContext(Context);
+
   return (
     <div className={styles.track} onClick={onClick}>
       <div className={styles.wrapper}>
         <p className={styles.index}>{index}</p>
-        {image ? <img src={image} alt="album-image" /> : null}
+        {image ? <img src={image} alt='album-image' /> : null}
         <div className={styles.trackInfo}>
           <p className={styles.trackName}>{trackName}</p>
-          <p className={styles.artist}>{artist}</p>
+          <p className={styles.artist} style={{ color: theme.trackArtist }}>
+            {artist}
+          </p>
         </div>
-        <p className={styles.album}>{album}</p>
-        <p className={styles.date}>
-          {added?.slice(0, 10).split("-").reverse().join(".")}
+        <p className={styles.album} style={{ color: theme.trackAlbum }}>
+          {album}
         </p>
-        <audio src={preview} controls />
+        <p className={styles.date}>
+          {added?.slice(0, 10).split('-').reverse().join('.')}
+        </p>
       </div>
     </div>
   );

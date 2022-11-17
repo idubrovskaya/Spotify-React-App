@@ -5,12 +5,12 @@
   bottom: 0;
   height: 90px;
   width: 100%;
-  background: #1db954;
+  background: #040404;
 }
 
 .songDetails {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   color: white;
   width: 300px;
   flex: 0.1;
@@ -25,14 +25,14 @@
 }
 
 .albumArt {
-  height: 60px;
-  width: 60px;
+  /* height: 160px; */
+  width: 130px;
   margin-right: 20px;
   object-fit: contain;
 }
 
 .player:hover {
-  color: white;
+  color: #1db954;
   transition: transform 0.2s ease-in-out;
   transform: scale(1.3) !important;
 }
@@ -44,7 +44,7 @@
   justify-content: center;
   max-width: 450px;
   flex: 0.6;
-  color: black;
+  color: white;
 }
 
 .volumeControl {
@@ -55,10 +55,6 @@
   max-width: 300px;
   color: white;
   cursor: pointer;
-}
-
-.volumeControl * .MuiSlider-root {
-  color: chartreuse;
 }
 
 input[type='range'] {
