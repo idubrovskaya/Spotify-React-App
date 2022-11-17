@@ -33,8 +33,6 @@ export const PlaylistTracks = () => {
     dispatch(playSong(track, tracks, index));
   };
 
-  console.log('треки', tracks);
-
   return (
     <div
       className={styles.wrapper}
@@ -48,16 +46,16 @@ export const PlaylistTracks = () => {
           {tracks.map((track: any, i: number) => {
             return (
               <Track
-                key={track.track?.id + Math.random().toString(16).slice(2)}
-                id={track.track?.id}
+                key={track?.id + Math.random().toString(16).slice(2)}
+                id={track?.id}
                 index={i !== 0 ? i + 1 : 1}
-                image={track.track?.album?.images[0]?.url}
-                trackName={track.track?.name}
-                artist={track.track?.artists[0]?.name}
-                album={track.track?.album.name}
-                added={track?.added_at}
-                preview={track.track?.preview_url}
-                onClick={() => onClickSongs(track.track, i)}
+                image={track?.album?.images[0]?.url}
+                trackName={track?.name}
+                artist={track?.artists[0]?.name}
+                album={track?.album.name}
+                added={track?.album.release_date}
+                preview={track?.preview_url}
+                onClick={() => onClickSongs(track, i)}
               />
             );
           })}

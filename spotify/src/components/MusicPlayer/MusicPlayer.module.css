@@ -10,7 +10,7 @@
 
 .songDetails {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   color: white;
   width: 300px;
   flex: 0.1;
@@ -25,8 +25,8 @@
 }
 
 .albumArt {
-  height: 60px;
-  width: 60px;
+  /* height: 160px; */
+  width: 130px;
   margin-right: 20px;
   object-fit: contain;
 }
@@ -55,10 +55,6 @@
   max-width: 300px;
   color: white;
   cursor: pointer;
-}
-
-.volumeControl * .MuiSlider-root {
-  color: chartreuse;
 }
 
 input[type='range'] {

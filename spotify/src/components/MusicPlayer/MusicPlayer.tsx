@@ -29,7 +29,7 @@ export const MusicPlayer = ({ songTitle }: any) => {
   // State
   const [songProgress, setSongProgress] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVolume] = useState(50);
+  // const [volume, setVolume] = useState(50);
 
   // Refs
   const audioRef = useRef(new Audio(songSrc));
@@ -119,8 +119,8 @@ export const MusicPlayer = ({ songTitle }: any) => {
 `;
 
   const updateVol = (e: any) => {
-    setVolume(volume);
-    dispatch(updateVolume(Math.ceil(e.target.value / 10) * 10));
+    // setVolume(e.target.value);
+    dispatch(updateVolume(e.target.value));
   };
 
   return song ? (
@@ -174,15 +174,15 @@ export const MusicPlayer = ({ songTitle }: any) => {
         </div>
       </div>
       <div className={styles.volumeControl}>
-        <QueueMusicOutlinedIcon />
+        {/* <QueueMusicOutlinedIcon />
         <VolumeUpOutlinedIcon />
         <input
           type='range'
-          value={volume}
+          value={}
           min={0}
           max={100}
           onChange={(e) => updateVol(e.target.value)}
-        />
+        /> */}
       </div>
     </div>
   ) : null;

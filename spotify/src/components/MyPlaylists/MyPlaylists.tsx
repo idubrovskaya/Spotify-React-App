@@ -5,9 +5,14 @@ import { spotifyFetch } from '../../spotify';
 import { UserInfo } from '../User/UserInfo';
 import { Header } from '../Header/Header';
 import { Loader } from '../Loader/Loader';
+import { ISong } from '../../redux/reducers/spotifyReducers';
+import { playSong } from '../../redux/actions/playerActions';
+import { useDispatch } from 'react-redux';
 
 export const MyPlaylists = () => {
   const token = localStorage.getItem('access_token');
+
+  const dispatch = useDispatch();
 
   const { theme } = useContext(Context);
 
@@ -25,6 +30,10 @@ export const MyPlaylists = () => {
   // }, [token]);
   // const [playlist, setPlaylist] = useState<any>([]);
   // console.log('playlist', playlist);
+
+  const onClickSongs = (track: ISong, index: number) => {
+    dispatch(playSong(track, savedTracks, index));
+  };
 
   return (
     <div
@@ -50,9 +59,12 @@ export const MyPlaylists = () => {
       <div className={styles.mainContent}>
         {savedTracks.length !== 0 ? (
           <div className={styles.playlist}>
-            {savedTracks[0]?.items?.map((track: any) => {
+            {savedTracks[0]?.items?.map((track: any, i: number) => {
               return (
-                <div className={styles.card}>
+                <div
+                  className={styles.card}
+                  onClick={() => onClickSongs(track.track, i)}
+                >
                   <div>
                     <img
                       src={track.track.album.images[0].url}

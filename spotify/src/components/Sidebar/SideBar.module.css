@@ -11,12 +11,17 @@ img {
   width: 130px;
 }
 
+.image {
+  width: 25px;
+  margin: 0;
+}
+
 .menuNavigation {
   padding: 15px;
   margin: 0;
 }
 ul {
-  padding: 25px 20px;
+  padding: 25px 10px;
 }
 
 li {
@@ -31,6 +36,8 @@ li {
   cursor: pointer;
   color: #b3b3b3;
   transition: 200ms color ease-in;
+  padding-left: 8px;
+  margin: 0;
 }
 
 .link:hover {
@@ -38,14 +45,19 @@ li {
 }
 
 .active {
-  margin-left: -3px;
+  /* margin-left: -3px; */
   text-decoration: none;
   color: #fff;
 }
 
-.active::before {
+/* .active::before {
   content: '';
   border-left: 3px solid #1db954;
   position: relative;
   left: -18px;
+} */
+.block {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
 }

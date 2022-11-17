@@ -94,7 +94,6 @@ export function fetchFeaturedPlaylists() {
     const response = await spotifyFetch(`browse/featured-playlists`);
 
     dispatch(getFeaturedPlaylists(response.playlists.items));
-    console.log(response);
   };
 }
 
@@ -128,8 +127,11 @@ export const getTracks = (track: ITracks) => {
 export function fetchTracks(playlist_id: string) {
   return async (dispatch: Dispatch) => {
     const response = await spotifyFetch(`/playlists/${playlist_id}`);
-    dispatch(getTracks(response.tracks.items));
-    console.log('trscks', response);
+
+    const tracks = response.tracks.items.map((item: any) => item.track);
+    dispatch(getTracks(tracks));
+
+    console.log('trscks', tracks);
   };
 }
 
@@ -140,3 +142,13 @@ export const clearContent = () => {
     type: ACTIONS.CLEAR_CONTENT,
   };
 };
+
+// liked tracks
+
+export function fetchLikedTracks() {
+  return async (dispatch: Dispatch) => {
+    const response = await spotifyFetch('/me/tracks');
+
+    dispatch(getTracks(response[0].items));
+  };
+}
